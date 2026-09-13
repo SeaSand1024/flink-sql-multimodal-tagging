@@ -1,0 +1,25 @@
+# Local Flink standalone cluster (JobManager + TaskManager) for the AI stub demo.
+services:
+  jobmanager:
+    build: .
+    image: flink-ai-stub-local:latest
+    ports:
+      - "8081:8081"   # Flink Web UI
+    command: jobmanager
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: jobmanager
+        jobmanager.memory.process.size: 1600m
+        execution.checkpointing.interval: 5s
+
+  taskmanager:
+    build: .
+    image: flink-ai-stub-local:latest
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: jobmanager
+        taskmanager.memory.process.size: 1728m
+        taskmanager.numberOfTaskSlots: 4

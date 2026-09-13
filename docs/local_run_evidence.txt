@@ -1,0 +1,30 @@
+# Local run — captured evidence (2026-09-13)
+
+Command: `cd local && ./run.sh`   (Docker daemon + mvn + java 8)
+
+Captured sample output (print connector, TaskManager stdout):
+
+```
++I[e1, [{"label":"户外运动","score":0.98},{"label":"服饰穿搭","score":0.92}], [{"label":"户外运动","score":0.98},{"label":"服饰穿搭","score":0.92}], {"labels":["户外运动","服饰穿搭"]}]
++I[e2, [{"label":"智能穿戴","score":0.98}], [{"label":"智能穿戴","score":0.98},{"label":"数码家电","score":0.92}], {"labels":["智能穿戴","数码家电"]}]
++I[e3, [{"label":"美妆护肤","score":0.98}], [{"label":"美妆护肤","score":0.98}], {"labels":["美妆护肤"]}]
+```
+
+Job state from `http://localhost:8081/jobs/overview`:
+
+```
+local-multimodal-tagging-demo -> FINISHED
+```
+
+Each row is `[id, text_candidates, image_candidates, final_labels]`.
+
+**Why this demonstrates text/image complementarity (e2):** text recall alone
+returns only `智能穿戴`; the image recall adds `数码家电`; the Stage-2 judge
+merges both → `{"labels":["智能穿戴","数码家电"]}`. Neither modality alone
+would produce both labels; the multimodal judge on the candidate union is what
+finds `数码家电`.
+
+**Gap:** these are deterministic local stubs, not real `qwen3-vl-embedding` /
+`qwen3.6-plus` inference. Real multimodal output requires the Alibaba Cloud
+Realtime Compute Flink (VVR 11.9 Preview 2+) cluster with those models
+provisioned + the Milvus `product_label` collection seeded (`labels/labels.sql`).

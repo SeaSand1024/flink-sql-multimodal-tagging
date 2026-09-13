@@ -57,7 +57,8 @@ flink-sql-multimodal-tagging/
 ├── docs/
 │   └── architecture.md              # design notes + per-function signature caveats
 ├── sql/
-│   ├── demo_all_standalone.sql      # ★ ONE self-contained script (VALUES→print), run this first
+│   ├── demo_all_standalone.sql      # ★ ONE self-contained script (VALUES→print), run this first (VVR)
+├── local/                           # ★ LOCAL run: Apache Flink + stubbed AI (no cloud) — see local/README.md
 │   ├── 01_env.sql                   # runtime/workspace config, job name, model registration
 │   ├── 02_source_ddl.sql            # source table DDL (Kafka / OSS / datagen variants)
 │   ├── 03_python_udf.sql            # Python inline UDF: candidate_trim()
@@ -74,6 +75,12 @@ flink-sql-multimodal-tagging/
 ---
 
 ## How to run
+
+> 💡 **Want to run it locally right now?** `local/` runs the exact pipeline on a
+> plain Apache Flink cluster (Docker Compose) with deterministic local-stub AI
+> functions (no Alibaba cloud needed). See [`local/README.md`](local/README.md)
+> and `./run.sh` — a captured sample of its output is at
+> `docs/local_run_evidence.txt`.
 
 ### Option A — standalone demo (no external Kafka/Milvus) — 推荐先跑这个
 
