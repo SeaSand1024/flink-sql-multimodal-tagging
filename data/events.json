@@ -1,0 +1,37 @@
+{
+  "description": "3 image+text events validating text/image label complementarity. See img_url for the image MODE (text vs image give different recall); judge must merge them.",
+  "labels_dim": 1024,
+  "topk": 3,
+  "events": [
+    {
+      "id": "e1",
+      "product_name": "户外冲锋衣",
+      "product_desc": "防水透气的三合一冲锋外套，适合徒步和露营",
+      "image_url": "data:image/png;base64,PLACEHOLDER_E1",
+      "image_looks_like": "outdoor jacket / hiking gear",
+      "text_suggests": ["户外运动"],
+      "image_suggests": ["户外运动", "服饰穿搭"],
+      "expected_labels": ["户外运动", "服饰穿搭"]
+    },
+    {
+      "id": "e2",
+      "product_name": "智能手环",
+      "product_desc": "支持心率、血氧与睡眠监测的可穿戴设备",
+      "image_url": "data:image/png;base64,PLACEHOLDER_E2",
+      "image_looks_like": "wearable smart bracelet",
+      "text_suggests": ["智能穿戴"],
+      "image_suggests": ["智能穿戴", "数码家电"],
+      "expected_labels": ["智能穿戴", "数码家电"]
+    },
+    {
+      "id": "e3",
+      "product_name": "保湿面霜",
+      "product_desc": "零油脂感的面部保湿霜，敏感肌可用",
+      "image_url": "data:image/png;base64,PLACEHOLDER_E3",
+      "image_looks_like": "skincare face cream jar",
+      "text_suggests": ["美妆护肤"],
+      "image_suggests": ["美妆护肤", "家居生活"],
+      "expected_labels": ["美妆护肤"]
+    }
+  ]
+}
